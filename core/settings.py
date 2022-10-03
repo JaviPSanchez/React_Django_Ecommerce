@@ -11,9 +11,6 @@ django.utils.encoding.force_text = force_str
 env = environ.Env()
 environ.Env.read_env()
 
-
-
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -39,7 +36,7 @@ DJANGO_APPS = [
     'django.contrib.staticfiles',
 ]
 
-PROJECT_APPS = []
+PROJECT_APPS = ['apps.user']
 ECOMMERCE_APPS = []
 # Todo lo instalado de requirements
 THIRD_PARTY_APPS = [
@@ -191,5 +188,22 @@ AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
 )
 
+AUTH_USER_MODEL="user.UserAccount"
 
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# console --> nos permite ver todo en el terminal
+EMAIL_BACKEND='django.core.mail.backends.console.EmailBackend'
+
+# Cuando ya no estamos en despliegue usamos, servicio smtp:
+
+if not DEBUG:
+    DEFAULT_FROM_EMAIL = 'Javier - Tienda Ecommerce <jp.sanchez@hotmail.es>'
+    EMAIL_BACKEND='django.core.mail.backends.smtp.EmailBackend'
+    EMAIL_HOST = env('EMAIL_HOST')
+    EMAIL_HOST_USER = env('EMAIL_HOST_USER')
+    EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
+    EMAIL_PORT = env('EMAIL_PORT')
+    EMAIL_USE_TLS = env('EMAIL_USE_TLS')
+    
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
