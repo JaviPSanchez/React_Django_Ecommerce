@@ -53,6 +53,7 @@ THIRD_PARTY_APPS = [
 INSTALLED_APPS = DJANGO_APPS + PROJECT_APPS + ECOMMERCE_APPS + THIRD_PARTY_APPS
 
 
+
 CKEDITOR_CONFIGS = {
     'default': {
         'toolbar': 'full',
