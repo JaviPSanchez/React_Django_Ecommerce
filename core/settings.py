@@ -1,22 +1,27 @@
-from pathlib import Path
-import environ
 # For working with environment variables:
+import environ
+from pathlib import Path
 import os
 
-# reading .env file
-environ.Env.read_env()
+# import django
+# from django.utils.encoding import force_str
+# django.utils.encoding.force_text = force_str
+
 # Initialise environment variables
 env = environ.Env()
-ENVIRONMENT = env
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = os.environ.get('SECRET_KEY')
+# SECRET_KEY = os.environ.get('SECRET_KEY')
+SECRET_KEY = env.str('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env.bool('DEBUG', default=False)
+# DEBUG = True
 
+# ALLOWED_HOSTS = ['*']
 ALLOWED_HOSTS = ['*']
 
 
