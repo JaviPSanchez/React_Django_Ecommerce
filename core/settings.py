@@ -3,12 +3,13 @@ import environ
 from pathlib import Path
 import os
 
-# import django
-# from django.utils.encoding import force_str
-# django.utils.encoding.force_text = force_str
+import django
+from django.utils.encoding import force_str
+django.utils.encoding.force_text = force_str
 
 # Initialise environment variables
 env = environ.Env()
+environ.Env.read_env()
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -22,7 +23,7 @@ DEBUG = env.bool('DEBUG', default=False)
 # DEBUG = True
 
 # ALLOWED_HOSTS = ['*']
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = tuple(env.list('ALLOWED_HOSTS', default=[]))
 
 
 # Application definition
