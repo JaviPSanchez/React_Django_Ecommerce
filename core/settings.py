@@ -1,11 +1,12 @@
 from pathlib import Path
+import environ
 # For working with environment variables:
 import os
-import environ
 
-# Declaramos el env:
-env = environ.Env()
+# reading .env file
 environ.Env.read_env()
+# Initialise environment variables
+env = environ.Env()
 ENVIRONMENT = env
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -148,6 +149,7 @@ MEDIA_URL = '/media/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'build/static')
 ]
+
 # Permisos de quien puede interactuar con nuestro API:
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
@@ -159,6 +161,7 @@ REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
     'PAGE_SIZE': 12
 }
+
 # Para hacer LogIn's:
 AUTHENTICATION_BACKENDS = (
     'social_core.backends.google.GoogleOAuth2',
@@ -166,7 +169,5 @@ AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
 )
 
-# Default primary key field type
-# https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
