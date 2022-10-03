@@ -12,6 +12,8 @@ env = environ.Env()
 environ.Env.read_env()
 
 
+
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -22,8 +24,8 @@ SECRET_KEY = env.str('SECRET_KEY')
 DEBUG = env.bool('DEBUG', default=False)
 # DEBUG = True
 
-# ALLOWED_HOSTS = ['*']
-ALLOWED_HOSTS = tuple(env.list('ALLOWED_HOSTS', default=[]))
+ALLOWED_HOSTS = ['*']
+# ALLOWED_HOSTS = tuple(env.list('ALLOWED_HOSTS', default=[]))
 
 
 # Application definition
@@ -94,18 +96,29 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'core.wsgi.application'
+
 
 DATABASES = {
-    'default': env.db("DATABASE_URL", default="postgres:///ecommerce"),
+    'default': env.db("DATABASE_URL", default="postgres://postgres:admin@127.0.0.1:5432/ecommerce"),
 }
-DATABASES["default"]["ATOMIC_REQUESTS"] = True
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': 'ecommerce',
+#         'USER': 'postgres',
+#         'PASSWORD': 'admin',
+#         'HOST': '127.0.0.1',
+#         'PORT': '5432',
+#     }
+# }
+# DATABASES["default"]["ATOMIC_REQUESTS"] = True
 
 CORS_ORIGIN_WHITELIST = [
     'http://localhost:3000',
     'http://localhost:8000',
     'http://127.0.0.1:8000',
     'http://127.0.0.1:3000',
+    # 'http://127.0.0.1:5432',
     # 'https://vudera.com',
 ]
 
@@ -114,8 +127,11 @@ CSRF_TRUSTED_ORIGINS = [
     'http://localhost:8000',
     'http://127.0.0.1:8000',
     'http://127.0.0.1:3000',
+    # 'http://127.0.0.1:5432',
     # 'https://vudera.com',
 ]
+
+WSGI_APPLICATION = 'core.wsgi.application'
 
 PASSWORD_HASHERS = [
     "django.contrib.auth.hashers.Argon2PasswordHasher",
