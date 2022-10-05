@@ -1,14 +1,15 @@
 import { SIGNUP_SUCCESS, SIGNUP_FAIL } from "./types";
-import { setAlert } from "./alert";
+// import { setAlert } from "./alert";
 import Axios from "axios";
-import { getMouseEventOptions } from "@testing-library/user-event/dist/utils";
+// import { getMouseEventOptions } from "@testing-library/user-event/dist/utils";
 
 // creamos nuestra funcion de sign up con los parametros, todo sera asyncrono puesto esperamos una respuesta:
 
 //Como estamos usando eventos, le pasaremos un dispatch
 
-export const signup =
-  (email, first_name, last_name, password, re_password) => async (dispatch) => {
+const signup =
+  (email, first_name, last_name, password, repeat_password) =>
+  async (dispatch) => {
     // dispatch({
     //   type: SET_AUTH_LOADING,
     // });
@@ -41,7 +42,7 @@ export const signup =
       last_name,
       email,
       password,
-      re_password,
+      repeat_password,
     });
 
     // Luego hacemos la llamada con el API:
@@ -66,7 +67,7 @@ export const signup =
         dispatch({
           type: SIGNUP_FAIL,
         });
-        dispatch(setAlert("Error al crear cuenta", "red"));
+        // dispatch(setAlert("Error al crear cuenta", "red"));
       }
     } catch (error) {
       dispatch({
@@ -74,3 +75,5 @@ export const signup =
       });
     }
   };
+
+export default signup;

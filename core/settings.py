@@ -98,18 +98,9 @@ TEMPLATES = [
 
 
 DATABASES = {
-    'default': env.db("DATABASE_URL", default="postgres://postgres:admin@127.0.0.1:5432/ecommerce"),
+    'default': env.db_url("DATABASES_URL", default='DATABASE_URL', engine='django.db.backends.postgresql'),
 }
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#         'NAME': 'ecommerce',
-#         'USER': 'postgres',
-#         'PASSWORD': 'admin',
-#         'HOST': '127.0.0.1',
-#         'PORT': '5432',
-#     }
-# }
+
 # DATABASES["default"]["ATOMIC_REQUESTS"] = True
 
 CORS_ORIGIN_WHITELIST = [
@@ -117,8 +108,8 @@ CORS_ORIGIN_WHITELIST = [
     'http://localhost:8000',
     'http://127.0.0.1:8000',
     'http://127.0.0.1:3000',
-    # 'http://127.0.0.1:5432',
-    # 'https://vudera.com',
+    
+    
 ]
 
 CSRF_TRUSTED_ORIGINS = [
@@ -126,8 +117,8 @@ CSRF_TRUSTED_ORIGINS = [
     'http://localhost:8000',
     'http://127.0.0.1:8000',
     'http://127.0.0.1:3000',
-    # 'http://127.0.0.1:5432',
-    # 'https://vudera.com',
+    
+    
 ]
 
 WSGI_APPLICATION = 'core.wsgi.application'

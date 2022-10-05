@@ -1,11 +1,19 @@
 import { useState, useEffect } from "react";
 import Layout from "../../hocs/Layout";
+//Para poder usar la funcion signup hay que conectarla correctamente
+import { connect } from "react-redux";
+import signup from "../../redux/actions/auth";
 
-function Signup() {
+//Pasamos la funcion signup the redux/actions y asi poder usarla:
+function Signup({ signup }) {
   // Para que la pagina vaya arriba del todo al refrescar
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
+  //Creamos una variable de estado, para saber si la cuenta ha sido creada o no.
+
+  const [accountCreated, setAccountCreated] = useState(false);
 
   //Procesamos los inputs, declaramos la variable formData que contiene todo
   const [formData, setFormData] = useState({
@@ -27,8 +35,9 @@ function Signup() {
     //Evitar que hagamos un envio sin querer...
     e.preventDefault();
     console.log(formData);
-    // signup(first_name, last_name, email, password, re_password);
-    // setAccountCreated(true);
+    signup(first_name, last_name, email, password, repeat_password);
+    //una vez registrados:
+    setAccountCreated(true);
     // window.scrollTo(0, 0);
   };
 
@@ -266,5 +275,9 @@ function Signup() {
     </Layout>
   );
 }
+// Creamos todo esto para poder pasar como props la funcion signup
+const mapStateToProps = (state) => ({});
 
-export default Signup;
+export default connect(mapStateToProps, {
+  signup,
+})(Signup);
