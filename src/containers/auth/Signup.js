@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import Layout from "../../hocs/Layout";
 //Para poder usar la funcion signup hay que conectarla correctamente
 import { connect } from "react-redux";
-import signup from "../../redux/actions/auth";
+import { signup } from "../../redux/actions/auth";
 
 //Pasamos la funcion signup the redux/actions y asi poder usarla:
 function Signup({ signup }) {
@@ -21,10 +21,10 @@ function Signup({ signup }) {
     last_name: "",
     email: "",
     password: "",
-    repeat_password: "",
+    re_password: "",
   });
 
-  const { first_name, last_name, email, password, repeat_password } = formData;
+  const { first_name, last_name, email, password, re_password } = formData;
 
   // Cada vez que pongamos algo en los inputs, react lo detecta y cambiamos el value del input por el name
 
@@ -35,7 +35,7 @@ function Signup({ signup }) {
     //Evitar que hagamos un envio sin querer...
     e.preventDefault();
     console.log(formData);
-    signup(first_name, last_name, email, password, repeat_password);
+    signup(first_name, last_name, email, password, re_password);
     //una vez registrados:
     setAccountCreated(true);
     // window.scrollTo(0, 0);
@@ -51,7 +51,7 @@ function Signup({ signup }) {
             alt="Workflow"
           />
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-            Sign in to your account
+            Sign Up to your account
           </h2>
           <p className="mt-2 text-center text-sm text-gray-600">
             Or{" "}
@@ -143,7 +143,7 @@ function Signup({ signup }) {
               </div>
               <div>
                 <label
-                  htmlFor="repeat_password"
+                  htmlFor="re_password"
                   className="block text-sm font-medium text-gray-700"
                 >
                   Repeat Password
@@ -151,8 +151,8 @@ function Signup({ signup }) {
                 <div className="mt-1">
                   <input
                     onChange={(event) => onChange(event)}
-                    name="repeat_password"
-                    value={repeat_password}
+                    name="re_password"
+                    value={re_password}
                     type="password"
                     required
                     className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"

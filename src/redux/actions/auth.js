@@ -1,4 +1,11 @@
-import { SIGNUP_SUCCESS, SIGNUP_FAIL } from "./types";
+import {
+  SIGNUP_SUCCESS,
+  SIGNUP_FAIL,
+  ACTIVATION_SUCCESS,
+  ACTIVATION_FAIL,
+  SET_AUTH_LOADING,
+  REMOVE_AUTH_LOADING,
+} from "./types";
 // import { setAlert } from "./alert";
 import Axios from "axios";
 // import { getMouseEventOptions } from "@testing-library/user-event/dist/utils";
@@ -7,12 +14,12 @@ import Axios from "axios";
 
 //Como estamos usando eventos, le pasaremos un dispatch
 
-const signup =
-  (email, first_name, last_name, password, repeat_password) =>
-  async (dispatch) => {
-    // dispatch({
-    //   type: SET_AUTH_LOADING,
-    // });
+export const signup =
+  (first_name, last_name, email, password, re_password) => async (dispatch) => {
+    //Para cuando estamos cargando
+    dispatch({
+      type: SET_AUTH_LOADING,
+    });
 
     // Cuando hacemos un envio lo primero que hacemos es un Content-type en el Headers:
 
@@ -42,7 +49,7 @@ const signup =
       last_name,
       email,
       password,
-      repeat_password,
+      re_password,
     });
 
     // Luego hacemos la llamada con el API:
@@ -67,13 +74,58 @@ const signup =
         dispatch({
           type: SIGNUP_FAIL,
         });
-        // dispatch(setAlert("Error al crear cuenta", "red"));
+        dispatch({
+          type: REMOVE_AUTH_LOADING,
+        });
       }
     } catch (error) {
       dispatch({
         type: SIGNUP_FAIL,
       });
+      dispatch({
+        type: REMOVE_AUTH_LOADING,
+      });
     }
   };
 
-export default signup;
+export const activate = (uid, token) => async (dispatch) => {
+  dispatch({
+    type: SET_AUTH_LOADING,
+  });
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+  const body = JSON.stringify({
+    uid,
+    token,
+  });
+  try {
+    const response = await Axios.post(
+      `${process.env.REACT_APP_API_URL}/auth/users/activation/`,
+      body,
+      config
+    );
+    //Segun Djoser la respuesta es 204
+    if (response.status === 204) {
+      dispatch({
+        type: ACTIVATION_SUCCESS,
+      });
+    } else {
+      dispatch({
+        type: ACTIVATION_FAIL,
+      });
+      dispatch({
+        type: REMOVE_AUTH_LOADING,
+      });
+    }
+  } catch (error) {
+    dispatch({
+      type: ACTIVATION_FAIL,
+    });
+    dispatch({
+      type: REMOVE_AUTH_LOADING,
+    });
+  }
+};
