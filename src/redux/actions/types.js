@@ -7,3 +7,7 @@ export const ACTIVATION_FAIL = "ACTIVATION_FAIL";
 //Loading Spinner
 export const SET_AUTH_LOADING = "SET_AUTH_LOADING";
 export const REMOVE_AUTH_LOADING = "REMOVE_AUTH_LOADING";
+
+//ALERTS
+export const SET_ALERT = "SET_ALERT";
+export const REMOVE_ALERT = "REMOVE_ALERT";

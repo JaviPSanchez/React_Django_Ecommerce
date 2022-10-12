@@ -6,7 +6,7 @@ import {
   SET_AUTH_LOADING,
   REMOVE_AUTH_LOADING,
 } from "./types";
-// import { setAlert } from "./alert";
+import { setAlert } from "./alert";
 import Axios from "axios";
 // import { getMouseEventOptions } from "@testing-library/user-event/dist/utils";
 
@@ -69,15 +69,22 @@ export const signup =
           type: SIGNUP_SUCCESS,
           payload: response.data,
         });
-        // En caso de que falle , ya no hay payload...
+        dispatch(
+          setAlert(
+            "Te hemos enviado un correo, por favor activa tu cuenta. Revisa la carpeta de spam",
+            "green"
+          )
+        );
       } else {
         dispatch({
           type: SIGNUP_FAIL,
+          // En caso de que falle , ya no hay payload...
         });
-        dispatch({
-          type: REMOVE_AUTH_LOADING,
-        });
+        dispatch(setAlert("Error al crear cuenta", "red"));
       }
+      dispatch({
+        type: REMOVE_AUTH_LOADING,
+      });
     } catch (error) {
       dispatch({
         type: SIGNUP_FAIL,
@@ -85,6 +92,9 @@ export const signup =
       dispatch({
         type: REMOVE_AUTH_LOADING,
       });
+      dispatch(
+        setAlert("Error al conectar con el servidor, intentar mas tarde", "red")
+      );
     }
   };
 
@@ -112,14 +122,16 @@ export const activate = (uid, token) => async (dispatch) => {
       dispatch({
         type: ACTIVATION_SUCCESS,
       });
+      dispatch(setAlert("Cuenta activada correctamente", "green"));
     } else {
       dispatch({
         type: ACTIVATION_FAIL,
       });
-      dispatch({
-        type: REMOVE_AUTH_LOADING,
-      });
+      dispatch(setAlert("Error activando cuenta", "red"));
     }
+    dispatch({
+      type: REMOVE_AUTH_LOADING,
+    });
   } catch (error) {
     dispatch({
       type: ACTIVATION_FAIL,
@@ -127,5 +139,8 @@ export const activate = (uid, token) => async (dispatch) => {
     dispatch({
       type: REMOVE_AUTH_LOADING,
     });
+    dispatch(
+      setAlert("Error al conectar con el servidor, intentar mas tarde", "red")
+    );
   }
 };
