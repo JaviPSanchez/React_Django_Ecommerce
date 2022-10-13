@@ -3,9 +3,11 @@ import Layout from "../../hocs/Layout";
 //Para poder usar la funcion signup hay que conectarla correctamente
 import { connect } from "react-redux";
 import { signup } from "../../redux/actions/auth";
-
+import { Navigate } from "react-router";
+import { activate } from "../../redux/actions/auth";
+import { Oval } from "react-loader-spinner";
 //Pasamos la funcion signup the redux/actions y asi poder usarla:
-function Signup({ signup }) {
+function Signup({ signup, loading }) {
   // Para que la pagina vaya arriba del todo al refrescar
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -38,9 +40,10 @@ function Signup({ signup }) {
     signup(first_name, last_name, email, password, re_password);
     //una vez registrados:
     setAccountCreated(true);
-    // window.scrollTo(0, 0);
+    //Para que nos envie arriba de la pagina al hacer click sobre el boton de register
+    window.scrollTo(0, 0);
   };
-
+  if (!activate && !loading) return <Navigate to="/login" />;
   return (
     <Layout>
       <div className="min-h-full flex flex-col justify-center py-12 sm:px-6 lg:px-8">
@@ -187,12 +190,18 @@ function Signup({ signup }) {
               </div>
 
               <div>
-                <button
-                  type="submit"
-                  className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                >
-                  Register
-                </button>
+                {loading ? (
+                  <button className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                    <Oval color="#fff" width={20} height={20} />
+                  </button>
+                ) : (
+                  <button
+                    type="submit"
+                    className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                  >
+                    Register
+                  </button>
+                )}
               </div>
             </form>
 
@@ -276,7 +285,9 @@ function Signup({ signup }) {
   );
 }
 // Creamos todo esto para poder pasar como props la funcion signup
-const mapStateToProps = (state) => ({});
+const mapStateToProps = (state) => ({
+  loading: state.Auth.loading,
+});
 
 export default connect(mapStateToProps, {
   signup,

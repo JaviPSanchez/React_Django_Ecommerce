@@ -4,8 +4,20 @@ import "react-toastify/dist/ReactToastify.css";
 import Navbar from "../components/navigation/Navbar";
 import Footer from "../components/navigation/Footer";
 
+import { check_authenticated, load_user, refresh } from "../redux/actions/auth";
+import { useEffect } from "react";
+import { connect } from "react-redux";
 //Mostramos el Navbar y el Footer y en medio la info que pasemos las paginas de los contenedores
 const Layout = (props) => {
+  useEffect(() => {
+    props.refresh();
+    props.check_authenticated();
+    props.load_user();
+    // props.get_items();
+    // props.get_total();
+    // props.get_item_total();
+    // props.get_user_profile();
+  }, []);
   return (
     <div>
       <Navbar />
@@ -16,4 +28,12 @@ const Layout = (props) => {
   );
 };
 
-export default Layout;
+export default connect(null, {
+  check_authenticated,
+  load_user,
+  refresh,
+  // get_items,
+  // get_total,
+  // get_item_total,
+  // get_user_profile
+})(Layout);

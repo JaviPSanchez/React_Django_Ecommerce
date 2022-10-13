@@ -7,7 +7,7 @@ export const setAlert =
   // el timeout diremos que es inicialmente de 5 segundos
 
 
-    (msg, alertType, timeout = 5000) =>
+    (msg, alertType, timeout = 3000) =>
     (dispatch) => {
       dispatch({
         type: SET_ALERT,

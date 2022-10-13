@@ -1,22 +1,22 @@
-// import { Fragment } from "react";
 import { connect } from "react-redux";
-
 import { CheckCircleIcon } from "@heroicons/react/solid";
 
 function Alert({ alert }) {
+  console.log(alert);
+
   const displayAlert = () => {
     if (alert !== null) {
       return (
-        <div className={`rounded-md bg-${alert.alertType}-50 p-4`}>
+        <div className={`rounded-md ${alert.alertType} p-4`}>
           <div className="flex">
             <div className="flex-shrink-0">
               <CheckCircleIcon
-                className={`h-5 w-5 text-${alert.alertType}-400`}
+                className={`h-5 w-5 ${alert.alertType}`}
                 aria-hidden="true"
               />
             </div>
             <div className="ml-3">
-              <p className={`text-sm font-medium text-${alert.alertType}-800`}>
+              <p className={`text-sm font-medium ${alert.alertType}`}>
                 {alert.msg}
               </p>
             </div>
@@ -24,7 +24,7 @@ function Alert({ alert }) {
         </div>
       );
     } else {
-      return <>Alerta</>;
+      return <></>;
     }
   };
 
