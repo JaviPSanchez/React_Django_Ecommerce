@@ -4,6 +4,7 @@ import Layout from "../../hocs/Layout";
 import { connect } from "react-redux";
 import { login } from "../../redux/actions/auth";
 import { Oval } from "react-loader-spinner";
+import { Link } from "react-router-dom";
 
 function LogIn({ login, loading }) {
   useEffect(() => {
@@ -39,16 +40,16 @@ function LogIn({ login, loading }) {
             alt="Workflow"
           />
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-            Sign Up to your account
+            Log In to your account
           </h2>
           <p className="mt-2 text-center text-sm text-gray-600">
             Or{" "}
-            <a
-              href="!#"
+            <Link
+              to="/signup"
               className="font-medium text-indigo-600 hover:text-indigo-500"
             >
-              start your 14-day free trial
-            </a>
+              Sign Up
+            </Link>
           </p>
         </div>
 
@@ -111,12 +112,12 @@ function LogIn({ login, loading }) {
                 </div>
 
                 <div className="text-sm">
-                  <a
-                    href="!#"
+                  <Link
+                    to="/reset_password"
                     className="font-medium text-indigo-600 hover:text-indigo-500"
                   >
                     Forgot your password?
-                  </a>
+                  </Link>
                 </div>
               </div>
 

@@ -13,6 +13,10 @@ import {
   AUTHENTICATED_FAIL,
   REFRESH_SUCCESS,
   REFRESH_FAIL,
+  RESET_PASSWORD_SUCCESS,
+  RESET_PASSWORD_FAIL,
+  RESET_PASSWORD_CONFIRM_SUCCESS,
+  RESET_PASSWORD_CONFIRM_FAIL,
   LOGOUT,
 } from "./types";
 import { setAlert } from "./alert";
@@ -343,6 +347,136 @@ export const refresh = () => async (dispatch) => {
     });
   }
 };
+//Tenemos que enviar un correo,
+export const reset_password = (email) => async (dispatch) => {
+  dispatch({
+    type: SET_AUTH_LOADING,
+  });
+
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+
+  const body = JSON.stringify({ email });
+
+  try {
+    const response = await Axios.post(
+      `${process.env.REACT_APP_API_URL}/auth/users/reset_password/`,
+      body,
+      config
+    );
+    // Djoser dice que la respuesta correcta es 204
+    if (response.status === 204) {
+      dispatch({
+        type: RESET_PASSWORD_SUCCESS,
+      });
+      dispatch({
+        type: REMOVE_AUTH_LOADING,
+      });
+      dispatch(
+        setAlert("Password reset email sent", "bg-green-50 text-green-800")
+      );
+    } else {
+      dispatch({
+        type: RESET_PASSWORD_FAIL,
+      });
+      dispatch({
+        type: REMOVE_AUTH_LOADING,
+      });
+      dispatch(
+        setAlert(
+          "Error sending password reset email",
+          "bg-red-200 text-red-800"
+        )
+      );
+    }
+  } catch (err) {
+    dispatch({
+      type: RESET_PASSWORD_FAIL,
+    });
+    dispatch({
+      type: REMOVE_AUTH_LOADING,
+    });
+    dispatch(
+      setAlert("Error sending password reset email", "bg-red-200 text-red-800")
+    );
+  }
+};
+
+export const reset_password_confirm =
+  (uid, token, new_password, re_new_password) => async (dispatch) => {
+    dispatch({
+      type: SET_AUTH_LOADING,
+    });
+
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    const body = JSON.stringify({
+      uid,
+      token,
+      new_password,
+      re_new_password,
+    });
+
+    if (new_password !== re_new_password) {
+      dispatch({
+        type: RESET_PASSWORD_CONFIRM_FAIL,
+      });
+      dispatch({
+        type: REMOVE_AUTH_LOADING,
+      });
+      dispatch(setAlert("Passwords do not match", "bg-red-200 text-red-800"));
+    } else {
+      try {
+        const response = await Axios.post(
+          `${process.env.REACT_APP_API_URL}/auth/users/reset_password_confirm/`,
+          body,
+          config
+        );
+
+        if (response.status === 204) {
+          dispatch({
+            type: RESET_PASSWORD_CONFIRM_SUCCESS,
+          });
+          dispatch({
+            type: REMOVE_AUTH_LOADING,
+          });
+          dispatch(
+            setAlert(
+              "Password has been reset successfully",
+              "bg-green-50 text-green-800"
+            )
+          );
+        } else {
+          dispatch({
+            type: RESET_PASSWORD_CONFIRM_FAIL,
+          });
+          dispatch({
+            type: REMOVE_AUTH_LOADING,
+          });
+          dispatch(
+            setAlert("Error resetting your password", "bg-red-200 text-red-800")
+          );
+        }
+      } catch (err) {
+        dispatch({
+          type: RESET_PASSWORD_CONFIRM_FAIL,
+        });
+        dispatch({
+          type: REMOVE_AUTH_LOADING,
+        });
+        dispatch(
+          setAlert("Error resetting your password", "bg-red-200 text-red-800")
+        );
+      }
+    }
+  };
 export const logout = () => (dispatch) => {
   dispatch({
     type: LOGOUT,

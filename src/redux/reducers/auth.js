@@ -13,6 +13,10 @@ import {
   AUTHENTICATED_FAIL,
   REFRESH_SUCCESS,
   REFRESH_FAIL,
+  RESET_PASSWORD_SUCCESS,
+  RESET_PASSWORD_FAIL,
+  RESET_PASSWORD_CONFIRM_SUCCESS,
+  RESET_PASSWORD_CONFIRM_FAIL,
   LOGOUT,
 } from "../actions/types";
 
@@ -79,10 +83,15 @@ export default function Auth(state = initialState, action) {
       };
     case ACTIVATION_SUCCESS:
     case ACTIVATION_FAIL:
+    case RESET_PASSWORD_SUCCESS:
+    case RESET_PASSWORD_FAIL:
+    case RESET_PASSWORD_CONFIRM_SUCCESS:
+    case RESET_PASSWORD_CONFIRM_FAIL:
+      //El estado se queda igual
       return {
         ...state,
       };
-
+    //Aqui modificamos el estado
     case REFRESH_SUCCESS:
       localStorage.setItem("access", payload.access);
       return {
