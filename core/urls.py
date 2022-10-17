@@ -8,8 +8,9 @@ urlpatterns = [
     path('auth/', include('djoser.urls')),
     path('auth/', include('djoser.urls.jwt')),
     path('auth/', include('djoser.social.urls')),
-    # Aqui estamos creado una API:
+    # Aqui estamos creado nuestra API:
     path('api/category/', include('apps.category.urls')),
+    path('api/product/', include('apps.product.urls')),
     
     path('admin/', admin.site.urls),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
