@@ -27,15 +27,15 @@ class Product(models.Model):
     date_created = models.DateTimeField(default=datetime.now)
     
     # METHODS
-    # def get_thumbnail(self):
-    #     """_summary_
+    def get_thumbnail(self):
+        """_summary_
 
-    #     Returns:
-    #         _type_: _description_
-    #     """
-    #     if self.photo:
-    #         return self.photo.url
-    #     return ''
+        Returns:
+            _type_: _description_
+        """
+        if self.photo:
+            return self.photo.url
+        return ''
 
     def __str__(self):
         """Mostramos el Producto por su nombre
