@@ -2,9 +2,9 @@ from django.db import models
 from datetime import datetime
 # Al producto vamos a designarle una categoria
 from apps.category.models import Category
-
-# from django.conf import settings
-# domain = settings.DOMAIN
+# Para cargar las fotos
+from django.conf import settings
+domain = settings.DOMAIN
 # Empezamos nuestra definicion de clase product
 class Product(models.Model):
     """Esta clase crea un producto que estara encasillado dentro de una categoria
@@ -28,12 +28,17 @@ class Product(models.Model):
     
     # METHODS
     def get_thumbnail(self):
-        """_summary_
+        """Para poder ver la foto entera:
+        
+        http://localhost:3000/media/photos/2022/10/guantes_oN7Cpqo.png
 
         Returns:
             _type_: _description_
         """
         if self.photo:
+            # return self.photo.url (no funciona)
+            # Creamos una variable de dominio en settings
+            # return domain + self.photo.url
             return self.photo.url
         return ''
 

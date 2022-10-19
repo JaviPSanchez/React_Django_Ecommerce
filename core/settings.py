@@ -25,7 +25,7 @@ DEBUG = env.bool('DEBUG', default=False)
 ALLOWED_HOSTS = ['*']
 # ALLOWED_HOSTS = tuple(env.list('ALLOWED_HOSTS', default=[]))
 
-
+DOMAIN = os.environ.get('DOMAIN')
 # Application definition
 
 DJANGO_APPS = [
