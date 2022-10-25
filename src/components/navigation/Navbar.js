@@ -268,7 +268,7 @@ function Navbar({
                 >
                   Shop
                 </NavLink>
-
+                {/* Forzamos no mostrar nada */}
                 {window.location.pathname === "/search" ? (
                   <></>
                 ) : (
