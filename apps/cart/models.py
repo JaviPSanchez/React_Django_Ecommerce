@@ -1,7 +1,8 @@
 from django.db import models
 from apps.product.models import Product
-# Importamos de settings
+# Importamos de settings y poder migrar correctamente toda la info.
 from django.conf import settings
+# Esta es otra forma de llamamr al usuario cuando sale el error en django
 User = settings.AUTH_USER_MODEL
 
 # Objeto de los usuarios

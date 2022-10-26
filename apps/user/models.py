@@ -1,7 +1,8 @@
 import os
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
-# from apps.cart.models import Cart
+# Cada vez que creemos un user queremos asignarle un carrito
+from apps.cart.models import Cart
 # from apps.user_profile.models import UserProfile
 # from apps.wishlist.models import WishList
 # Vamos a permitir al usuario que se registre a traves de React:
@@ -21,12 +22,12 @@ class UserAccountManager(BaseUserManager):
         
         email = self.normalize_email(email)
         user = self.model(email=email, **kwargs)
-
+        # Grabamos el usuario:
         user.set_password(password)
         user.save()
-
-        # shopping_cart = Cart.objects.create(user=user)
-        # shopping_cart.save()
+        # Siempre que creemos un usuario, tendrá un carrito asociado:
+        shopping_cart = Cart.objects.create(user=user)
+        shopping_cart.save()
         
         # profile = UserProfile.objects.create(user=user)
         # profile.save()
