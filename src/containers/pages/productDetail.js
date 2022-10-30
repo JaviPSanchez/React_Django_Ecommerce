@@ -21,12 +21,12 @@ import {
 //   filter_reviews,
 // } from "../../redux/actions/reviews";
 import { Oval } from "react-loader-spinner";
-// import {
-//   get_items,
-//   add_item,
-//   get_total,
-//   get_item_total,
-// } from "../../redux/actions/cart";
+import {
+  get_items,
+  add_item,
+  get_total,
+  get_item_total,
+} from "../../redux/actions/cart";
 import { useEffect, useState } from "react";
 import ImageGallery from "../../components/product/ImageGallery";
 // import WishlistHeart from "../../components/product/WishlistHeart";
@@ -61,6 +61,7 @@ const ProductDetail = ({
 
   const navigate = useNavigate();
 
+  // Funcion para agregar al carrito
   const addToCart = async () => {
     if (
       product &&
@@ -481,10 +482,10 @@ const mapStateToProps = (state) => ({
 export default connect(mapStateToProps, {
   get_product,
   get_related_products,
-  // get_items,
-  // add_item,
-  // get_total,
-  // get_item_total,
+  get_items,
+  add_item,
+  get_total,
+  get_item_total,
   // add_wishlist_item,
   // get_wishlist_items,
   // get_wishlist_item_total,
