@@ -1,12 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import {
-  UploadIcon,
-  XIcon,
-  CheckIcon,
-  ClockIcon,
-} from "@heroicons/react/solid";
-import { useEffect } from "react";
+import { XIcon, CheckIcon, ClockIcon } from "@heroicons/react/solid";
 
 const CartItem = ({
   item,
@@ -22,23 +16,28 @@ const CartItem = ({
   });
 
   const { item_count } = formData;
-
+  // Usamos este usEffect para ver cuantos tenemos en conteo
   useEffect(() => {
+    // Cogemos el count
     if (count) setFormData({ ...formData, item_count: count });
+    // eslint-disable-next-line
   }, [count]);
-
+  // Cuando detecte cambios
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
-
+  // Para actualizar
   const onSubmit = (e) => {
     e.preventDefault();
+    // HAcemos fetch de nuestros datos cuando actualizamos la cantidad:
     const fetchData = async () => {
       try {
         if (item.product.quantity >= item_count) {
+          // actualizamos el item:
           await update_item(item, item_count);
         } else {
           setAlert("Not enough in stock", "danger");
         }
+        // diremos de no mostrar el render
         setRender(!render);
       } catch (err) {}
     };
@@ -76,9 +75,6 @@ const CartItem = ({
             </div>
             <div className="mt-1 flex text-sm">
               <p className="text-gray-500">Color</p>
-              {/* {product.size ? (
-                    <p className="ml-4 pl-4 border-l border-gray-200 text-gray-500">{product.size}</p>
-                    ) : null} */}
             </div>
             <p className="mt-1 text-sm font-medium text-gray-900">
               $ {item.product.price}

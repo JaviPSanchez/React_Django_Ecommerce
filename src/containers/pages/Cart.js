@@ -1,5 +1,6 @@
 import Layout from "../../hocs/Layout";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { setAlert } from "../../redux/actions/alert";
 import {
@@ -9,9 +10,7 @@ import {
   get_total,
   get_item_total,
 } from "../../redux/actions/cart";
-import { useEffect } from "react";
 import CartItem from "../../components/cart/CartItem";
-import { Link } from "react-router-dom";
 import { QuestionMarkCircleIcon } from "@heroicons/react/solid";
 // import { remove_wishlist_item } from "../../redux/actions/wishlist";
 // import WishlistItem from "../../components/cart/WishlistItem";
@@ -150,7 +149,6 @@ const Cart = ({
               </ul>
             </section>
 
-            {/* Order summary */}
             <section
               aria-labelledby="summary-heading"
               className="mt-16 bg-gray-50 rounded-lg px-4 py-6 sm:p-6 lg:p-8 lg:mt-0 lg:col-span-5"

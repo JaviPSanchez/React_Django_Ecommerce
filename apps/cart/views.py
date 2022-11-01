@@ -143,7 +143,6 @@ class GetTotalView(APIView):
             return Response(
                 {'error': 'Something went wrong when retrieving total costs'},
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-# CRUD OPERATIONS
 
 # READ: Total de items
 class GetItemTotalView(APIView):

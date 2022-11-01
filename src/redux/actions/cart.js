@@ -395,8 +395,8 @@ export const synch_cart = () => async (dispatch) => {
 
   if (localStorage.getItem("cart")) {
     let cart = JSON.parse(localStorage.getItem("cart"));
-
-    cart.map((cart_item) => {
+    // No usamos map porque no queremos devolver nada, luego usamos forEach
+    cart.forEach((cart_item) => {
       const item = {};
       item.product_id = cart_item.product.id;
       item.count = cart_item.count;
