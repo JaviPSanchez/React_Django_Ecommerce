@@ -14,6 +14,13 @@ import Shop from "./containers/Shop";
 import ProductDetail from "./containers/pages/productDetail";
 import Search from "./containers/pages/Search";
 import Cart from "./containers/pages/Cart";
+import Checkout from "./containers/pages/Checkout";
+import PrivateRoute from "./hocs/PrivateRoute";
+// import ThankYou from './containers/pages/ThankYou';
+// import Dashboard from './containers/pages/Dashboard';
+// import DashboardPayments from './containers/pages/DashboardPayments';
+// import DashboardPaymentDetail from './containers/pages/DashboardPaymentDetail';
+// import DashboardProfile from './containers/pages/DashboardProfile';
 
 function App() {
   return (
@@ -24,6 +31,10 @@ function App() {
 
           <Route exact path="/" element={<Home />} />
           <Route exact path="/cart" element={<Cart />} />
+          {/* <Route element={<PrivateRoute />}>
+            <Route exact path="/checkout" element={<Checkout />} />
+          </Route> */}
+          <Route exact path="/checkout" element={<Checkout />} />
 
           <Route exact path="/signup" element={<Signup />} />
           <Route exact path="/login" element={<Login />} />

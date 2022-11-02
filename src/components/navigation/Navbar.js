@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, Navigate, NavLink } from "react-router-dom";
 import { Popover, Transition, Menu } from "@headlessui/react";
 import Alert from "../../components/alert";
@@ -110,7 +110,7 @@ function Navbar({
       </div>
 
       <Transition
-        as={Fragment}
+        // as={Fragment}
         enter="transition ease-out duration-100"
         enterFrom="transform opacity-0 scale-95"
         enterTo="transform opacity-100 scale-100"
@@ -156,7 +156,7 @@ function Navbar({
   );
 
   const guestLinks = (
-    <Fragment>
+    <>
       <Link
         to="/login"
         className="text-base font-medium text-gray-500 hover:text-gray-900"
@@ -169,7 +169,7 @@ function Navbar({
       >
         Sign up
       </Link>
-    </Fragment>
+    </>
   );
 
   return (
@@ -245,7 +245,7 @@ function Navbar({
         </div>
 
         <Transition
-          as={Fragment}
+          // as={Fragment}
           enter="duration-200 ease-out"
           enterFrom="opacity-0 scale-95"
           enterTo="opacity-100 scale-100"

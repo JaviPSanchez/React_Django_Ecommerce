@@ -191,7 +191,7 @@ const Cart = ({
                   <dt className="flex text-sm text-gray-600">
                     <span>Tax estimate</span>
                     <Link
-                      to="#"
+                      to="/"
                       className="ml-2 flex-shrink-0 text-gray-400 hover:text-gray-500"
                     >
                       <span className="sr-only">

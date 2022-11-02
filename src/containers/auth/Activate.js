@@ -20,8 +20,10 @@ const Activate = ({ activate, loading }) => {
     activate(uid, token);
     setActivated(true);
   };
+
   //Podemos usar loading porque lo hemos usado abajo, en const mapStateToProps
   if (activated && !loading) return <Navigate to="/" />;
+
   return (
     <Layout>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
